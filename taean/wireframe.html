@@ -28,6 +28,7 @@
       font-family: 'Noto Sans KR', sans-serif;
       background: #E8E4DC;
       color: var(--bark);
+      padding: 0 160px; /* room for left-side wf-badges */
     }
 
     /* ── Hero ── */
@@ -83,9 +84,10 @@
       margin: 0 auto;
       background: var(--white);
       box-shadow: 0 0 40px rgba(0,0,0,0.12);
+      position: relative;
     }
 
-    section { width: 100%; }
+    section { width: 100%; position: relative; }
 
     .bg-parchment { background: var(--parchment); }
     .bg-white     { background: var(--white); }
@@ -95,6 +97,10 @@
 
     /* ── Wireframe Annotation Badge ── */
     .wf-badge {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      transform: translateX(calc(-100% - 10px));
       display: inline-block;
       font-size: 11px;
       font-weight: 600;
@@ -104,7 +110,7 @@
       background: rgba(193,124,69,0.12);
       color: var(--maple);
       border: 1px dashed var(--maple);
-      margin-bottom: 20px;
+      white-space: nowrap;
     }
 
     /* ── Typography ── */
@@ -591,7 +597,7 @@
 
   <!-- ══ Section 4: 원산지 안내 ══ -->
   <section id="sec-origin">
-    <div class="wf-badge" style="position:absolute;z-index:1;margin:12px 16px;">SECTION 4 · 원산지 안내</div>
+    <div class="wf-badge">SECTION 4 · 원산지 안내</div>
     <!-- Split screen: image left / dark text right -->
     <div class="split-screen">
       <div class="split-image">
@@ -703,7 +709,7 @@
   <!-- ══ Section 6: 법적 고지 ══ -->
   <section class="bg-bark" id="sec-legal">
     <div class="section-inner" style="text-align:center;">
-      <div class="wf-badge" style="background:rgba(193,124,69,0.2);color:var(--maple);border-color:var(--maple);">SECTION 6 · 법적 고지</div>
+      <div class="wf-badge" style="background:rgba(193,124,69,0.2);color:var(--maple);border-color:var(--maple);top:12px;">SECTION 6 · 법적 고지</div>
       <div style="width:48px;height:48px;border-radius:50%;background:rgba(193,124,69,0.15);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 20px;">⚠️</div>
       <h2 class="h-md" style="color:var(--parchment);">의료용 제품 안내</h2>
       <div class="mt-12"></div>
