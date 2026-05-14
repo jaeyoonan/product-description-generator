@@ -1,4 +1,154 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+/**
+ * generate.js
+ * Reads taean/WIREFRAME.md, extracts design tokens (colors, typography, spacing),
+ * then regenerates taean/wireframe.html with the updated values.
+ *
+ * Run manually:  node scripts/generate.js
+ * Auto-watch:    npm run watch
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const WIREFRAME_MD  = path.join(__dirname, '../taean/WIREFRAME.md');
+const WIREFRAME_HTML = path.join(__dirname, '../taean/wireframe.html');
+
+// ── Parsers ──────────────────────────────────────────────────────────────────
+
+/**
+ * Parse the colour-palette table from WIREFRAME.md.
+ * Expected columns: | 역할 | 이름 | Hex | 용도 |
+ * Returns e.g. { Bark: '#3C2415', Maple: '#C17C45', ... }
+ */
+function parseColors(md) {
+  const colors = {};
+  const tableRe = /## 디자인 시스템[\s\S]*?### 컬러 팔레트([\s\S]*?)###/;
+  const match = md.match(tableRe);
+  if (!match) return colors;
+
+  const rowRe = /\|\s*\S+\s*\|\s*(\w+)\s*\|\s*`(#[0-9A-Fa-f]{6})`\s*\|/g;
+  let m;
+  while ((m = rowRe.exec(match[1])) !== null) {
+    colors[m[1]] = m[2];
+  }
+  return colors;
+}
+
+/**
+ * Parse typography table.
+ * Returns e.g. { '섹션 대제목': { font: 'Noto Sans KR', weight: '700', size: '28–32px' }, ... }
+ */
+function parseTypography(md) {
+  const typo = {};
+  const tableRe = /### 타이포그래피([\s\S]*?)###/;
+  const match = md.match(tableRe);
+  if (!match) return typo;
+
+  const rowRe = /\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/g;
+  let first = true;
+  let m;
+  while ((m = rowRe.exec(match[1])) !== null) {
+    if (first || m[1].includes('---')) { first = false; continue; } // skip header/separator
+    const role = m[1].trim();
+    if (role === '역할') continue;
+    typo[role] = { font: m[2].trim(), weight: m[3].trim(), size: m[4].trim() };
+  }
+  return typo;
+}
+
+/**
+ * Parse the common styles table.
+ * Returns e.g. { '콘텐츠 최대폭': '720px (모바일 100%)', ... }
+ */
+function parseSpacing(md) {
+  const spacing = {};
+  const tableRe = /### 공통 스타일([\s\S]*?)---/;
+  const match = md.match(tableRe);
+  if (!match) return spacing;
+
+  const rowRe = /\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/g;
+  let first = true;
+  let m;
+  while ((m = rowRe.exec(match[1])) !== null) {
+    if (first || m[1].includes('---')) { first = false; continue; }
+    const key = m[1].trim();
+    if (key === '요소') continue;
+    spacing[key] = m[2].trim();
+  }
+  return spacing;
+}
+
+/**
+ * Parse section-level padding values from the wireframe ASCII blocks.
+ * Returns e.g. { 'sec-hero': '40px', 'sec-detail': '48px 20px', ... }
+ */
+function parseSectionPadding(md) {
+  const paddings = {};
+  const sections = [
+    { id: 'sec-hero',    re: /Section 1[^`]*```[\s\S]*?\[padding:\s*([^\]]+)\]/   },
+    { id: 'sec-detail',  re: /Section 2[^`]*```[\s\S]*?\[padding:\s*([^\]]+)\]/   },
+    { id: 'sec-compare', re: /Section 3[^`]*```[\s\S]*?\[padding:\s*([^\]]+)\]/   },
+    { id: 'sec-origin',  re: /Section 4[^`]*```[\s\S]*?\[padding:\s*([^\]]+)\]/   },
+    { id: 'sec-quality', re: /5a[\s\S]*?배경[^\n]*\n```[\s\S]*?\[padding:\s*([^\]]+)\]/ },
+    { id: 'sec-process', re: /5b[\s\S]*?배경[^\n]*\n```[\s\S]*?\[padding:\s*([^\]]+)\]/ },
+    { id: 'sec-storage', re: /5c[\s\S]*?배경[^\n]*\n```[\s\S]*?\[padding:\s*([^\]]+)\]/ },
+    { id: 'sec-legal',   re: /Section 6[^`]*```[\s\S]*?\[padding:\s*([^\]]+)\]/   },
+  ];
+  for (const s of sections) {
+    const m = md.match(s.re);
+    if (m) paddings[s.id] = m[1].trim();
+  }
+  return paddings;
+}
+
+// ── HTML Builder ─────────────────────────────────────────────────────────────
+
+function buildCSSTokens(colors, typo, spacing) {
+  const c = {
+    bark:      colors.Bark      || '#3C2415',
+    maple:     colors.Maple     || '#C17C45',
+    harvest:   colors.Harvest   || '#BAB58D',
+    sky:       colors.Sky       || '#CAD3D0',
+    parchment: colors.Parchment || '#FAF1E0',
+    white:     colors.White     || '#FFFFFF',
+  };
+
+  // Extract max-width from spacing table
+  const maxWRaw = spacing['콘텐츠 최대폭'] || '720px (모바일 100%)';
+  const maxW    = (maxWRaw.match(/(\d+px)/) || ['', '720px'])[1];
+
+  // Extract border-radius for cards
+  const cardRadiusRaw = spacing['카드 모서리'] || 'border-radius: 12px';
+  const cardRadius    = (cardRadiusRaw.match(/(\d+px)/) || ['', '12px'])[1];
+
+  // Extract card shadow
+  const shadowRaw  = spacing['카드 그림자'] || '0 4px 20px rgba(60,36,21,0.06)';
+  const cardShadow = shadowRaw;
+
+  // Extract image border-radius
+  const imgRadiusRaw = spacing['이미지 모서리'] || 'border-radius: 8px';
+  const imgRadius    = (imgRadiusRaw.match(/(\d+px)/) || ['', '8px'])[1];
+
+  // Extract section padding
+  const secPaddingRaw = spacing['섹션 간 여백'] || '48px padding';
+  const secPadding    = (secPaddingRaw.match(/(\d+px)/) || ['', '48px'])[1];
+
+  return { c, maxW, cardRadius, cardShadow, imgRadius, secPadding };
+}
+
+function buildHTML(md) {
+  const colors  = parseColors(md);
+  const typo    = parseTypography(md);
+  const spacing = parseSpacing(md);
+  const secPad  = parseSectionPadding(md);
+
+  const { c, maxW, cardRadius, cardShadow, imgRadius, secPadding } = buildCSSTokens(colors, typo, spacing);
+
+  // Section padding helper: prefer parsed value, else fall back to spec default
+  const pad = (id, fallback) => secPad[id] || fallback || `${secPadding} 20px`;
+
+  return `<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -9,17 +159,17 @@
   <style>
     /* ── Design Tokens (parsed from WIREFRAME.md) ── */
     :root {
-      --bark:      #3C2415;
-      --maple:     #C17C45;
-      --harvest:   #BAB58D;
-      --sky:       #CAD3D0;
-      --parchment: #FAF1E0;
-      --white:     #FFFFFF;
-      --max-w:     720px;
-      --radius-card: 12px;
-      --radius-img:  8px;
-      --shadow-card: 0 4px 20px rgba(60,36,21,0.06);
-      --sec-padding: 48px;
+      --bark:      ${c.bark};
+      --maple:     ${c.maple};
+      --harvest:   ${c.harvest};
+      --sky:       ${c.sky};
+      --parchment: ${c.parchment};
+      --white:     ${c.white};
+      --max-w:     ${maxW};
+      --radius-card: ${cardRadius};
+      --radius-img:  ${imgRadius};
+      --shadow-card: ${cardShadow};
+      --sec-padding: ${secPadding};
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -373,7 +523,7 @@
 
   <!-- ══ Section 1: 히어로 ══ -->
   <section class="bg-parchment" id="sec-hero">
-    <div class="section-inner" style="padding: 40px 20px;">
+    <div class="section-inner" style="padding: ${pad('sec-hero', '40px')} 20px;">
       <div class="wf-badge">SECTION 1 · 히어로</div>
       <div class="img-placeholder aspect-4-3">
         <span class="icon">🦌</span>
@@ -625,4 +775,17 @@
 
 </main>
 </body>
-</html>
+</html>`;
+}
+
+// ── Main ─────────────────────────────────────────────────────────────────────
+
+function generate() {
+  const md   = fs.readFileSync(WIREFRAME_MD, 'utf8');
+  const html = buildHTML(md);
+  fs.writeFileSync(WIREFRAME_HTML, html, 'utf8');
+  const now = new Date().toLocaleTimeString('ko-KR');
+  console.log(`[${now}] ✅  wireframe.html regenerated from WIREFRAME.md`);
+}
+
+generate();

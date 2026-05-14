@@ -1,0 +1,25 @@
+{
+  "name": "product-description-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "watch": "node scripts/watch.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaeyoonan/product-description-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jaeyoonan/product-description-generator/issues"
+  },
+  "homepage": "https://github.com/jaeyoonan/product-description-generator#readme",
+  "dependencies": {
+    "chokidar": "^5.0.0"
+  }
+}
