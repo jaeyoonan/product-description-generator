@@ -30,40 +30,63 @@
       color: var(--bark);
     }
 
-    /* ── Page Meta Label ── */
-    .page-meta {
-      background: var(--bark);
-      color: var(--parchment);
-      text-align: center;
-      padding: 12px 20px;
-      font-size: 13px;
-      letter-spacing: 1px;
-    }
-    .page-meta strong { color: var(--maple); }
-
-    /* ── Page Matrix Nav ── */
-    .matrix-nav {
-      background: var(--white);
-      border-bottom: 1px solid rgba(186,181,141,0.4);
-      padding: 16px 20px;
+    /* ── Hero Slider ── */
+    .hero-slider {
+      position: relative;
+      height: 520px;
+      background: rgba(186,181,141,0.15);
+      border-bottom: 1px dashed var(--harvest);
       display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 16px;
+      overflow: hidden;
     }
-    .matrix-nav a {
-      font-size: 12px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      text-decoration: none;
+    .hero-slider .crop-circle {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(186,181,141,0.25);
+      border: 2px dashed var(--harvest);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--harvest); text-align: center;
+      padding: 16px;
+    }
+    .hero-slider .slider-title {
+      font-size: 28px; font-weight: 700;
+      color: var(--bark); text-align: center; line-height: 1.4;
+      padding: 0 32px;
+    }
+    .hero-slider .slider-nav {
+      display: flex; align-items: center; gap: 20px;
+      font-size: 13px; color: var(--harvest);
+    }
+    .hero-slider .slider-nav .arrow {
+      width: 32px; height: 32px; border-radius: 50%;
       border: 1px solid var(--harvest);
-      color: var(--bark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--harvest);
+    }
+    .hero-info {
+      padding: 48px 24px;
       background: var(--parchment);
     }
-    .matrix-nav a.active {
-      background: var(--maple);
-      color: var(--white);
-      border-color: var(--maple);
+    .hero-info .hero-title { font-size: 28px; font-weight: 700; }
+    .hero-pagination {
+      display: flex; gap: 6px; align-items: center;
+      margin: 20px 0;
+    }
+    .hero-pagination span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(186,181,141,0.4);
+    }
+    .hero-pagination span.active { background: var(--maple); }
+    .hero-cta {
+      display: inline-block;
+      background: var(--maple); color: var(--white);
+      padding: 14px 28px; border-radius: 8px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
     }
 
     /* ── Wireframe Container ── */
@@ -350,45 +373,39 @@
 </head>
 <body>
 
-<!-- ── Page Meta ── -->
-<div class="page-meta">
-  와이어프레임 — 태안 녹용 상세페이지 &nbsp;|&nbsp;
-  <strong>예시: 분골 × 뉴질랜드 (bungol-nz)</strong> &nbsp;|&nbsp;
-  8페이지 구조 동일 적용
-</div>
-
-<!-- ── Page Matrix Nav ── -->
-<nav class="matrix-nav">
-  <a href="#" class="active">분골 🇳🇿 NZ</a>
-  <a href="#">분골 🇷🇺 RU</a>
-  <a href="#">상대 🇳🇿 NZ</a>
-  <a href="#">상대 🇷🇺 RU</a>
-  <a href="#">중대 🇳🇿 NZ</a>
-  <a href="#">중대 🇷🇺 RU</a>
-  <a href="#">하대 🇳🇿 NZ</a>
-  <a href="#">하대 🇷🇺 RU</a>
-</nav>
-
 <main class="page">
 
   <!-- ══ Section 1: 히어로 ══ -->
-  <section class="bg-parchment" id="sec-hero">
-    <div class="section-inner" style="padding: 40px 20px;">
-      <div class="wf-badge">SECTION 1 · 히어로</div>
-      <div class="img-placeholder aspect-4-3">
-        <span class="icon">🦌</span>
-        <span>녹용 분골 메인 이미지<br/>(full-width · aspect 4:3 · rounded 12px)</span>
+  <section id="sec-hero">
+    <!-- 비주얼 슬라이더 영역 H: 520px -->
+    <div class="hero-slider">
+      <div class="crop-circle">
+        [ 좌측 원형 크롭 이미지 ]<br/>녹용 {부위명} 고해상도 연출컷
       </div>
-      <div class="mt-32"></div>
-      <span class="badge badge-maple">◆ 프리미엄 A</span>
-      <div class="mt-16"></div>
-      <h1 class="h-xl">녹용 분골</h1>
+      <div class="slider-nav">
+        <div class="arrow">‹</div>
+        <span>(순서 표시)</span>
+        <div class="arrow">›</div>
+      </div>
+      <div class="slider-title">{히어로 슬라이더 제목 문구}<br/>— 32px Bold/Serif —</div>
+    </div>
+
+    <!-- 상세 정보 영역 -->
+    <div class="hero-info">
+      <div class="wf-badge">SECTION 1 · 히어로 상세 정보</div>
+      <div class="hero-title">태안 녹용 {부위명}</div>
       <div class="mt-12"></div>
-      <p class="body" style="color: rgba(60,36,21,0.7);">
-        자연이 만든 가장 귀한 원료,<br/>태안이 전하는 프리미엄 녹용
-      </p>
-      <div class="mt-24"></div>
-      <p class="caption">원산지: 🇳🇿 뉴질랜드</p>
+      <div class="badge-row">
+        <span class="badge badge-maple">◆ {등급}</span>
+        <span class="badge badge-sky">{국기} {국가명}</span>
+      </div>
+      <div class="mt-16"></div>
+      <p class="body" style="color:rgba(60,36,21,0.7);">{부위별 핵심 가치 및 철학 설명 — 15px, line-height 1.7}</p>
+      <div class="hero-pagination">
+        <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span style="font-size:12px;color:var(--harvest);margin-left:4px;">페이지네이션</span>
+      </div>
+      <a href="#" class="hero-cta">자세히 보기 ↗</a>
     </div>
   </section>
 
@@ -396,61 +413,57 @@
   <section class="bg-white" id="sec-detail">
     <div class="section-inner">
       <div class="wf-badge">SECTION 2 · 부위 상세</div>
-      <h2 class="h-xl">녹용 분골</h2>
+      <h2 class="h-xl">녹용 {부위명}</h2>
       <div class="mt-8"></div>
       <div class="badge-row">
-        <span class="badge badge-maple">◆ 프리미엄 A</span>
-        <span class="badge badge-sky">🇳🇿 뉴질랜드</span>
+        <span class="badge badge-maple">◆ {등급}</span>
+        <span class="badge badge-sky">{국기} {국가명}</span>
       </div>
       <div class="mt-24"></div>
       <div class="img-placeholder aspect-16-10">
         <span class="icon">📸</span>
-        <span>부위 절단면 사진 — 분골<br/>(rounded 8px · aspect 16:10)</span>
+        <span>부위 절단면 사진 — {부위명}<br/>(rounded 8px · aspect 16:10)</span>
       </div>
       <div class="mt-32"></div>
       <h3 class="h-md">── 부위 소개 ──</h3>
       <div class="mt-12"></div>
-      <p class="body">
-        분골은 녹용의 최상단 부위로, 가장 부드럽고 세포 증식이 활발한 부분입니다.
-        시알산과 IGF-1 등의 성장 인자가 가장 풍부하게 함유되어 있으며,
-        한방에서 최고 등급인 프리미엄 A로 분류됩니다.
-      </p>
+      <p class="body">{부위 소개 본문 — 15px, line-height 1.7}</p>
       <div class="mt-24"></div>
       <div class="card">
         <h4 class="h-md" style="margin-bottom:16px;">외형적 특징</h4>
         <ul class="feature-list">
-          <li><span class="dot"></span><span>최상단 끝부위, 길이 약 3–5cm</span></li>
-          <li><span class="dot"></span><span>표면이 매우 부드럽고 융모 밀도가 높음</span></li>
-          <li><span class="dot"></span><span>내부는 해면질 구조, 수분 함량 높음</span></li>
-          <li><span class="dot"></span><span>단면: 연한 핑크빛, 혈관 분포 조밀</span></li>
+          <li><span class="dot"></span><span>{특징 1}</span></li>
+          <li><span class="dot"></span><span>{특징 2}</span></li>
+          <li><span class="dot"></span><span>{특징 3}</span></li>
+          <li><span class="dot"></span><span>{특징 4}</span></li>
         </ul>
       </div>
       <div class="mt-32"></div>
       <h3 class="h-md">── 대표 성분 ──</h3>
       <div class="component-card-grid">
         <div class="card">
-          <div class="data" style="font-size:18px;font-weight:600;">시알산 (Sialic Acid)</div>
-          <p style="font-size:14px;color:rgba(60,36,21,0.7);margin:8px 0 16px;">세포막 구성 및 신경 조직에 관여하는 핵심 당산류</p>
+          <div class="data" style="font-size:18px;font-weight:600;">{성분명 1}</div>
+          <p style="font-size:14px;color:rgba(60,36,21,0.7);margin:8px 0 16px;">{성분 설명 1 — 14px}</p>
           <div class="bar-chart">
-            <div class="bar-row"><span class="bar-label">분골</span><div class="bar-track"><div class="bar-fill active" style="width:48%"></div></div><span class="bar-pct active">48%</span></div>
-            <div class="bar-row"><span class="bar-label">상대</span><div class="bar-track"><div class="bar-fill high"   style="width:24%"></div></div><span class="bar-pct">24%</span></div>
-            <div class="bar-row"><span class="bar-label">중대</span><div class="bar-track"><div class="bar-fill"        style="width:20%"></div></div><span class="bar-pct">20%</span></div>
-            <div class="bar-row"><span class="bar-label">하대</span><div class="bar-track"><div class="bar-fill"        style="width:8%"></div></div><span class="bar-pct">8%</span></div>
+            <div class="bar-row"><span class="bar-label">분골</span><div class="bar-track"><div class="bar-fill active" style="width:48%"></div></div><span class="bar-pct active">{n}%</span></div>
+            <div class="bar-row"><span class="bar-label">상대</span><div class="bar-track"><div class="bar-fill high"   style="width:24%"></div></div><span class="bar-pct">{n}%</span></div>
+            <div class="bar-row"><span class="bar-label">중대</span><div class="bar-track"><div class="bar-fill"        style="width:20%"></div></div><span class="bar-pct">{n}%</span></div>
+            <div class="bar-row"><span class="bar-label">하대</span><div class="bar-track"><div class="bar-fill"        style="width:8%"></div></div><span class="bar-pct">{n}%</span></div>
           </div>
         </div>
         <div class="card">
-          <div class="data" style="font-size:18px;font-weight:600;">IGF-1</div>
-          <p style="font-size:14px;color:rgba(60,36,21,0.7);margin:8px 0 16px;">인슐린 유사 성장인자, 조직 재생 및 세포 증식 관련</p>
+          <div class="data" style="font-size:18px;font-weight:600;">{성분명 2}</div>
+          <p style="font-size:14px;color:rgba(60,36,21,0.7);margin:8px 0 16px;">{성분 설명 2 — 14px}</p>
           <div class="bar-chart">
-            <div class="bar-row"><span class="bar-label">분골</span><div class="bar-track"><div class="bar-fill active" style="width:40%"></div></div><span class="bar-pct active">40%</span></div>
-            <div class="bar-row"><span class="bar-label">상대</span><div class="bar-track"><div class="bar-fill high"   style="width:30%"></div></div><span class="bar-pct">30%</span></div>
-            <div class="bar-row"><span class="bar-label">중대</span><div class="bar-track"><div class="bar-fill"        style="width:17%"></div></div><span class="bar-pct">17%</span></div>
-            <div class="bar-row"><span class="bar-label">하대</span><div class="bar-track"><div class="bar-fill"        style="width:13%"></div></div><span class="bar-pct">13%</span></div>
+            <div class="bar-row"><span class="bar-label">분골</span><div class="bar-track"><div class="bar-fill active" style="width:40%"></div></div><span class="bar-pct active">{n}%</span></div>
+            <div class="bar-row"><span class="bar-label">상대</span><div class="bar-track"><div class="bar-fill high"   style="width:30%"></div></div><span class="bar-pct">{n}%</span></div>
+            <div class="bar-row"><span class="bar-label">중대</span><div class="bar-track"><div class="bar-fill"        style="width:17%"></div></div><span class="bar-pct">{n}%</span></div>
+            <div class="bar-row"><span class="bar-label">하대</span><div class="bar-track"><div class="bar-fill"        style="width:13%"></div></div><span class="bar-pct">{n}%</span></div>
           </div>
         </div>
       </div>
       <div class="mt-12"></div>
-      <p style="font-size:12px;color:var(--harvest);">※ 성분 분포 수치는 연구 데이터 기반 상대적 경향이며, 효능·효과를 나타내거나 보장하지 않습니다.</p>
+      <p style="font-size:12px;color:var(--harvest);">※ {성분 분포 면책 고지 — 12px}</p>
     </div>
   </section>
 
@@ -472,12 +485,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>시알산</td><td class="active-col max-val">48%</td><td>24%</td><td>20%</td><td>8%</td></tr>
-            <tr><td>GAGs</td>  <td class="active-col">42%</td><td class="max-val">51%</td><td>4%</td><td>3%</td></tr>
-            <tr><td>IGF-1</td> <td class="active-col max-val">40%</td><td>30%</td><td>17%</td><td>13%</td></tr>
-            <tr><td>콜라겐</td><td class="active-col">13%</td><td>17%</td><td>32%</td><td class="max-val">38%</td></tr>
-            <tr><td>무기질</td><td class="active-col">3%</td><td>24%</td><td>35%</td><td class="max-val">38%</td></tr>
-            <tr><td>조단백</td><td class="active-col max-val">29%</td><td>26%</td><td>24%</td><td>21%</td></tr>
+            <tr><td>시알산</td><td class="active-col max-val">{n}%</td><td>{n}%</td><td>{n}%</td><td>{n}%</td></tr>
+            <tr><td>GAGs</td>  <td class="active-col">{n}%</td><td class="max-val">{n}%</td><td>{n}%</td><td>{n}%</td></tr>
+            <tr><td>IGF-1</td> <td class="active-col max-val">{n}%</td><td>{n}%</td><td>{n}%</td><td>{n}%</td></tr>
+            <tr><td>콜라겐</td><td class="active-col">{n}%</td><td>{n}%</td><td>{n}%</td><td class="max-val">{n}%</td></tr>
+            <tr><td>무기질</td><td class="active-col">{n}%</td><td>{n}%</td><td>{n}%</td><td class="max-val">{n}%</td></tr>
+            <tr><td>조단백</td><td class="active-col max-val">{n}%</td><td>{n}%</td><td>{n}%</td><td>{n}%</td></tr>
             <tr class="grade-row"><td>등급</td><td class="active-col">P.A</td><td>P.A</td><td>A</td><td>A</td></tr>
           </tbody>
         </table>
@@ -493,33 +506,27 @@
       <div class="wf-badge">SECTION 4 · 원산지 안내</div>
       <p class="origin-tag">ORIGIN</p>
       <div class="mt-8"></div>
-      <h2 class="h-xl">🇳🇿 뉴질랜드</h2>
+      <h2 class="h-xl">{국기} {국가명}</h2>
       <div class="mt-24"></div>
       <div class="img-placeholder aspect-16-9">
         <span class="icon">🌿</span>
-        <span>뉴질랜드 농장 풍경 이미지<br/>(aspect 16:9 · rounded 8px)</span>
+        <span>{국가명} 풍경 / 농장 이미지<br/>(aspect 16:9 · rounded 8px)</span>
       </div>
       <div class="mt-24"></div>
-      <p class="body">
-        뉴질랜드는 청정 환경과 체계적인 농장 관리로 세계 최고 품질의 녹용 원산지 중 하나입니다.
-        엄격한 동물 복지 기준 하에 방목 사육되며, 개체별 이력 추적 시스템을 통해
-        원산지부터 최종 제품까지 완전한 추적이 가능합니다.
-      </p>
+      <p class="body">{원산지 소개 본문 — 15px, line-height 1.7}</p>
       <div class="mt-40"></div>
       <h3 class="h-md">── 현지 파트너 ──</h3>
       <div class="mt-12"></div>
-      <p class="body">
-        태안은 뉴질랜드 현지의 인증된 녹용 농장과 장기 파트너십을 맺어,
-        직접 품질을 확인하고 선별한 원료만을 수입합니다.
-      </p>
+      <p class="body">{파트너 소개 본문 — 15px}</p>
       <div class="mt-24"></div>
+      <!-- NZ: 6장 이미지 그리드 / RU: 안내 박스 -->
       <div class="image-grid-2">
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">import-1-nz.jpeg</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">import-2-nz.jpeg</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">import-3-nz.jpeg</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">import-4-nz.jpeg</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">import-5-nz.jpeg</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">import-6-nz.jpeg</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 1</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 2</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 3</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 4</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 5</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 6</span></div>
       </div>
     </div>
   </section>
@@ -532,15 +539,15 @@
       <div class="mt-32"></div>
       <div class="card">
         <h4 class="h-md" style="margin-bottom:16px;">MFDS 등록 정보</h4>
-        <div class="kv-row"><span class="kv-key">허가번호</span><span class="kv-value">기재 예정</span></div>
-        <div class="kv-row"><span class="kv-key">품목 분류</span><span class="kv-value">한약재 원료 (의료용)</span></div>
-        <div class="kv-row"><span class="kv-key">등록 기관</span><span class="kv-value">식품의약품안전처</span></div>
+        <div class="kv-row"><span class="kv-key">허가번호</span><span class="kv-value">{허가번호}</span></div>
+        <div class="kv-row"><span class="kv-key">품목 분류</span><span class="kv-value">{품목 분류}</span></div>
+        <div class="kv-row"><span class="kv-key">등록 기관</span><span class="kv-value">{등록 기관}</span></div>
       </div>
       <div class="card">
         <h4 class="h-md" style="margin-bottom:16px;">hGMP 시설 정보</h4>
-        <div class="kv-row"><span class="kv-key">시설 인증</span><span class="kv-value">한국 우수의약품 제조관리기준</span></div>
-        <div class="kv-row"><span class="kv-key">인증 번호</span><span class="kv-value">기재 예정</span></div>
-        <div class="kv-row"><span class="kv-key">최종 갱신</span><span class="kv-value">기재 예정</span></div>
+        <div class="kv-row"><span class="kv-key">시설 인증</span><span class="kv-value">{인증명}</span></div>
+        <div class="kv-row"><span class="kv-key">인증 번호</span><span class="kv-value">{인증 번호}</span></div>
+        <div class="kv-row"><span class="kv-key">최종 갱신</span><span class="kv-value">{갱신 일자}</span></div>
       </div>
       <div class="mt-32"></div>
       <div class="card">
@@ -564,24 +571,24 @@
       <div class="wf-badge">SECTION 5b · 수입 및 제조 과정</div>
       <h2 class="h-lg">수입 및 제조 과정</h2>
       <div class="mt-8"></div>
-      <p class="caption text-center">현지에서 최종 제품까지, 전 과정을 투명하게 관리합니다.</p>
+      <p class="caption text-center">{수입·제조 부제 설명 — 13px}</p>
       <div class="mt-32"></div>
       <h3 class="h-md">── 수입 과정 ──</h3>
       <div class="mt-16"></div>
       <div class="timeline">
-        <div class="timeline-item"><div class="timeline-num">1</div><div class="timeline-line"></div><div class="timeline-title">해외 구매 계약</div><p class="timeline-desc">현지 인증 농장과의 직접 계약을 통해 원료 품질을 사전 보장</p></div>
-        <div class="timeline-item"><div class="timeline-num">2</div><div class="timeline-line"></div><div class="timeline-title">도착 및 수입신고</div><p class="timeline-desc">한국 도착 후 관세청 신고 및 서류 검토 완료</p></div>
-        <div class="timeline-item"><div class="timeline-num">3</div><div class="timeline-line"></div><div class="timeline-title">검역 및 품질검사</div><p class="timeline-desc">식품의약품안전처 기준에 따른 검역 및 성분 분석</p></div>
-        <div class="timeline-item"><div class="timeline-num">4</div><div class="timeline-line"></div><div class="timeline-title">허가 및 반출</div><p class="timeline-desc">모든 검사 통과 후 공식 허가 하에 제조 시설로 이송</p></div>
+        <div class="timeline-item"><div class="timeline-num">1</div><div class="timeline-line"></div><div class="timeline-title">해외 구매 계약</div><p class="timeline-desc">{설명}</p></div>
+        <div class="timeline-item"><div class="timeline-num">2</div><div class="timeline-line"></div><div class="timeline-title">도착 및 수입신고</div><p class="timeline-desc">{설명}</p></div>
+        <div class="timeline-item"><div class="timeline-num">3</div><div class="timeline-line"></div><div class="timeline-title">검역 및 품질검사</div><p class="timeline-desc">{설명}</p></div>
+        <div class="timeline-item"><div class="timeline-num">4</div><div class="timeline-line"></div><div class="timeline-title">허가 및 반출</div><p class="timeline-desc">{설명}</p></div>
       </div>
       <div class="divider"></div>
       <h3 class="h-md">── 제조 과정 ──</h3>
       <div class="mt-16"></div>
       <div class="timeline">
-        <div class="timeline-item"><div class="timeline-num">5</div><div class="timeline-line"></div><div class="timeline-title">원료 입고</div><p class="timeline-desc">hGMP 인증 시설에서 원료 상태 최종 확인 및 등록</p></div>
-        <div class="timeline-item"><div class="timeline-num">6</div><div class="timeline-line"></div><div class="timeline-title">거모·주침·숙성</div><p class="timeline-desc">전통 한방 공법에 따른 털 제거, 주침, 저온 숙성</p></div>
-        <div class="timeline-item"><div class="timeline-num">7</div><div class="timeline-line"></div><div class="timeline-title">절단 및 건조</div><p class="timeline-desc">부위별 정밀 절단 후 저온 건조로 유효 성분 보존</p></div>
-        <div class="timeline-item"><div class="timeline-num">8</div><div class="timeline-line"></div><div class="timeline-title">선별 및 포장</div><p class="timeline-desc">등급별 선별 후 밀봉 포장 및 최종 품질 확인</p></div>
+        <div class="timeline-item"><div class="timeline-num">5</div><div class="timeline-line"></div><div class="timeline-title">원료 입고</div><p class="timeline-desc">{설명}</p></div>
+        <div class="timeline-item"><div class="timeline-num">6</div><div class="timeline-line"></div><div class="timeline-title">거모·주침·숙성</div><p class="timeline-desc">{설명}</p></div>
+        <div class="timeline-item"><div class="timeline-num">7</div><div class="timeline-line"></div><div class="timeline-title">절단 및 건조</div><p class="timeline-desc">{설명}</p></div>
+        <div class="timeline-item"><div class="timeline-num">8</div><div class="timeline-line"></div><div class="timeline-title">선별 및 포장</div><p class="timeline-desc">{설명}</p></div>
       </div>
     </div>
   </section>
@@ -593,13 +600,13 @@
       <h2 class="h-lg">보관 및 취급 유의사항</h2>
       <div class="mt-32"></div>
       <div class="card">
-        <div class="guide-item"><div class="guide-icon">🌡️</div><div><div class="guide-title">보관 온도</div><p class="guide-desc">직사광선을 피하고 서늘하고 건조한 곳에 보관하세요.</p></div></div>
-        <div class="guide-item"><div class="guide-icon">💧</div><div><div class="guide-title">습기 차단</div><p class="guide-desc">밀폐 용기에 보관하여 습기 흡수를 방지하세요.</p></div></div>
-        <div class="guide-item"><div class="guide-icon">📦</div><div><div class="guide-title">밀폐 보관</div><p class="guide-desc">사용 후 공기 접촉을 최소화하여 밀봉 보관하세요.</p></div></div>
-        <div class="guide-item"><div class="guide-icon">ℹ️</div><div><div class="guide-title">이상 여부 확인</div><p class="guide-desc">이취·변색 발견 시 사용을 중단하고 전문가에게 문의하세요.</p></div></div>
+        <div class="guide-item"><div class="guide-icon">🌡️</div><div><div class="guide-title">보관 온도</div><p class="guide-desc">{가이드 설명}</p></div></div>
+        <div class="guide-item"><div class="guide-icon">💧</div><div><div class="guide-title">습기 차단</div><p class="guide-desc">{가이드 설명}</p></div></div>
+        <div class="guide-item"><div class="guide-icon">📦</div><div><div class="guide-title">밀폐 보관</div><p class="guide-desc">{가이드 설명}</p></div></div>
+        <div class="guide-item"><div class="guide-icon">ℹ️</div><div><div class="guide-title">이상 여부 확인</div><p class="guide-desc">{가이드 설명}</p></div></div>
       </div>
       <div class="mt-16"></div>
-      <p style="font-size:12px;color:var(--harvest);">※ 녹용은 개체별 특성에 따라 색택, 형태 등에서 일부 편차가 있을 수 있으나, 이는 제품의 품질 이상이 아닙니다.</p>
+      <p style="font-size:12px;color:var(--harvest);">{보관 유의 부기 문구 — 12px}</p>
     </div>
   </section>
 
@@ -611,12 +618,12 @@
       <h2 class="h-md" style="color:var(--parchment);">의료용 제품 안내</h2>
       <div class="mt-12"></div>
       <p style="font-size:15px;font-weight:600;color:var(--parchment);line-height:1.6;">
-        본 제품은 「약사법」에 따라<br/>의료용으로만 공급되는 한약재입니다.
+        {법적 고지 핵심 문구 — 15px Bold}
       </p>
       <ul class="legal-list" style="margin:0 auto;">
-        <li>일반 소비자 직접 판매 불가, 한의사·약사 처방 필요</li>
-        <li>용법·용량은 전문 의료인과 상담 후 사용하세요</li>
-        <li>무단 판매 시 관련 법령에 따라 처벌받을 수 있습니다</li>
+        <li>{법적 고지 항목 1}</li>
+        <li>{법적 고지 항목 2}</li>
+        <li>{법적 고지 항목 3}</li>
       </ul>
       <div class="legal-divider"></div>
       <p style="font-size:14px;color:var(--harvest);letter-spacing:1px;">태안 (TAEAN)</p>
