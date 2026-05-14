@@ -434,6 +434,57 @@
     .origin-tag { font-size: 12px; letter-spacing: 2px; color: var(--harvest); text-transform: uppercase; }
     .info-box   { background: rgba(202,211,208,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; }
 
+    /* ── Section 4 Split Screen ── */
+    .split-screen {
+      display: flex;
+      min-height: 280px;
+    }
+    .split-image {
+      flex: 0 0 50%;
+      background: rgba(186,181,141,0.2);
+      border: 1px dashed var(--harvest);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--harvest);
+      font-size: 13px;
+      text-align: center;
+      padding: 16px;
+      position: relative;
+    }
+    .split-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--harvest);
+      text-transform: uppercase;
+    }
+    .split-text {
+      flex: 1;
+      background: var(--bark);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 32px 24px;
+    }
+    .split-text .country-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.3;
+    }
+    .split-text .country-body {
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(250,241,224,0.75);
+    }
+    .origin-lower { padding: 48px 20px; background: var(--parchment); }
+
     /* ── Responsive ── */
     @media (max-width: 480px) {
       .h-xl, .h-lg          { font-size: 26px; }
@@ -539,25 +590,26 @@
   </section>
 
   <!-- ══ Section 4: 원산지 안내 ══ -->
-  <section class="bg-parchment" id="sec-origin">
-    <div class="section-inner">
-      <div class="wf-badge">SECTION 4 · 원산지 안내</div>
-      <p class="origin-tag">ORIGIN</p>
-      <div class="mt-8"></div>
-      <h2 class="h-xl">{국기} {국가명}</h2>
-      <div class="mt-24"></div>
-      <div class="img-placeholder aspect-16-9">
-        <span class="icon">🌿</span>
-        <span>{국가명} 풍경 / 농장 이미지<br/>(aspect 16:9 · rounded 8px)</span>
+  <section id="sec-origin">
+    <div class="wf-badge" style="position:absolute;z-index:1;margin:12px 16px;">SECTION 4 · 원산지 안내</div>
+    <!-- Split screen: image left / dark text right -->
+    <div class="split-screen">
+      <div class="split-image">
+        <span class="split-tag">ORIGIN</span>
+        <span style="font-size:32px;opacity:0.35;">🌿</span>
+        <span>{국가명} 풍경 / 농장 이미지<br/>(full-bleed · 50% width)</span>
       </div>
-      <div class="mt-24"></div>
-      <p class="body">{원산지 소개 본문 — 15px, line-height 1.7}</p>
-      <div class="mt-40"></div>
+      <div class="split-text">
+        <div class="country-name">{국기} {국가명}</div>
+        <p class="country-body">{[통합 본문]}</p>
+      </div>
+    </div>
+
+    <!-- Partner section below -->
+    <div class="origin-lower">
       <h3 class="h-md">── 현지 파트너 ──</h3>
-      <div class="mt-12"></div>
-      <p class="body">{파트너 소개 본문 — 15px}</p>
       <div class="mt-24"></div>
-      <!-- NZ: 6장 이미지 그리드 / RU: 안내 박스 -->
+      <!-- NZ: 6장 이미지 그리드 -->
       <div class="image-grid-2">
         <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 1</span></div>
         <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 2</span></div>
