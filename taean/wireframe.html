@@ -490,6 +490,8 @@
       color: rgba(250,241,224,0.75);
     }
     .origin-lower { padding: 48px 20px; background: var(--parchment); }
+    .partner-stack { display: flex; flex-direction: column; gap: 16px; }
+    .partner-stack .img-placeholder { width: 90%; margin: 0 auto; }
 
     /* ── Responsive ── */
     @media (max-width: 480px) {
@@ -607,22 +609,24 @@
       </div>
       <div class="split-text">
         <div class="country-name">{국기} {국가명}</div>
-        <p class="country-body">{[통합 본문]}</p>
+        <p class="country-body">{[원산지 본문]}</p>
       </div>
     </div>
 
     <!-- Partner section below -->
     <div class="origin-lower">
       <h3 class="h-md">── 현지 파트너 ──</h3>
-      <div class="mt-24"></div>
-      <!-- NZ: 6장 이미지 그리드 -->
-      <div class="image-grid-2">
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 1</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 2</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 3</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 4</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 5</span></div>
-        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span style="font-size:12px;">파트너 이미지 6</span></div>
+      <div class="mt-12"></div>
+      <p class="body">{파트너 소개 본문}</p>
+      <div class="mt-32"></div>
+      <!-- NZ: 6장 수직 스택 -->
+      <div class="partner-stack">
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span>파트너 이미지 1</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span>파트너 이미지 2</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span>파트너 이미지 3</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span>파트너 이미지 4</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span>파트너 이미지 5</span></div>
+        <div class="img-placeholder aspect-3-2"><span class="icon">📷</span><span>파트너 이미지 6</span></div>
       </div>
     </div>
   </section>
