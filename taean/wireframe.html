@@ -115,6 +115,20 @@
     .caption{ font-size: 13px; color: var(--harvest); }
     .small  { font-size: 12px; color: var(--harvest); }
 
+    /* ── Token placeholder styling ── */
+    .token {
+      display: inline-block;
+      background: rgba(193,124,69,0.1);
+      color: var(--maple);
+      border: 1px dashed rgba(193,124,69,0.5);
+      border-radius: 4px;
+      padding: 0 5px;
+      font-size: 0.85em;
+      font-weight: 600;
+      font-style: normal;
+      letter-spacing: 0.3px;
+    }
+
     .text-center { text-align: center; }
     .mt-8  { margin-top: 8px; }
     .mt-12 { margin-top: 12px; }
@@ -372,7 +386,7 @@
         <span>{부위명} 대표 이미지</span>
       </div>
       <div class="hero-right">
-        <h1 class="hero-title">태안 녹용 {부위명}</h1>
+        <h1 class="hero-title">{제목}</h1>
         <div class="mt-12"></div>
         <div class="badge-row">
           <span class="badge badge-maple">◆ {등급}</span>
@@ -380,9 +394,7 @@
         </div>
       </div>
     </div>
-    <p class="hero-desc">
-      분골은 녹용의 가장 윗부분으로, 뿔이 자라기 시작하는 초기 단계의 연골성 조직입니다. 단단한 뼈로 굳기 전 상태로 내부에 혈관 조직이 촘촘하게 분포되어 있으며, 한 마리 사슴에서 소량만 얻어지는 희소성이 높은 부위입니다.
-    </p>
+    <p class="hero-desc">{부위소개}</p>
   </section>
 
   <!-- ══ Section 2: 부위 상세 ══ -->
@@ -607,5 +619,14 @@
   </section>
 
 </main>
+<script>
+  // Wrap all {token} occurrences in styled spans
+  document.querySelectorAll('main *').forEach(el => {
+    if (el.children.length > 0) return;
+    if (!el.textContent.includes('{')) return;
+    el.innerHTML = el.innerHTML.replace(/\{([^}]+)\}/g,
+      '<span class="token">{$1}</span>');
+  });
+</script>
 </body>
 </html>
