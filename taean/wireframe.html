@@ -117,22 +117,25 @@
 
     /* ── Token placeholder styling ── */
     .token {
-      display: inline-block;
+      display: inline;
       background: none;
       color: inherit;
-      border: 1px dashed rgba(120,120,120,0.5);
-      border-radius: 4px;
-      padding: 2px 6px;
+      border: none;
       font-size: inherit;
       font-weight: inherit;
       font-style: normal;
       letter-spacing: inherit;
     }
-    .token-block {
+    .token-area {
       display: block;
       width: 100%;
-      padding: 4px 8px;
       box-sizing: border-box;
+      padding: 8px 12px;
+      border: 1px dashed rgba(120,120,120,0.45);
+      border-radius: 4px;
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
     }
 
     .text-center { text-align: center; }
@@ -400,7 +403,7 @@
         </div>
       </div>
     </div>
-    <p class="hero-desc">{부위소개}</p>
+    <p class="hero-desc">{[부위소개]}</p>
   </section>
 
   <!-- ══ Section 2: 부위 상세 ══ -->
@@ -626,16 +629,13 @@
 
 </main>
 <script>
-  // Wrap all {token} occurrences in styled spans
   document.querySelectorAll('main *').forEach(el => {
     if (el.children.length > 0) return;
-    const text = el.textContent.trim();
-    if (!text.includes('{')) return;
-    // If the entire content is a single token, make it block-width
-    const isSoleToken = /^\{[^}]+\}$/.test(text);
-    el.innerHTML = el.innerHTML.replace(/\{([^}]+)\}/g, (_, t) =>
-      `<span class="token${isSoleToken ? ' token-block' : ''}">{${t}}</span>`
-    );
+    if (!el.textContent.includes('{')) return;
+    // {[token]} = area token (bordered block), {token} = inline text (no border)
+    el.innerHTML = el.innerHTML
+      .replace(/\{\[([^\]]+)\]\}/g, '<span class="token token-area">{$1}</span>')
+      .replace(/\{([^}\[]+)\}/g,    '<span class="token">{$1}</span>');
   });
 </script>
 </body>
