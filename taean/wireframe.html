@@ -118,15 +118,21 @@
     /* ── Token placeholder styling ── */
     .token {
       display: inline-block;
-      background: rgba(193,124,69,0.1);
-      color: var(--maple);
-      border: 1px dashed rgba(193,124,69,0.5);
+      background: rgba(180,180,180,0.15);
+      color: #1a1a1a;
+      border: 1px dashed rgba(120,120,120,0.4);
       border-radius: 4px;
-      padding: 0 5px;
+      padding: 2px 6px;
       font-size: 0.85em;
       font-weight: 600;
       font-style: normal;
       letter-spacing: 0.3px;
+    }
+    .token-block {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      box-sizing: border-box;
     }
 
     .text-center { text-align: center; }
@@ -623,9 +629,13 @@
   // Wrap all {token} occurrences in styled spans
   document.querySelectorAll('main *').forEach(el => {
     if (el.children.length > 0) return;
-    if (!el.textContent.includes('{')) return;
-    el.innerHTML = el.innerHTML.replace(/\{([^}]+)\}/g,
-      '<span class="token">{$1}</span>');
+    const text = el.textContent.trim();
+    if (!text.includes('{')) return;
+    // If the entire content is a single token, make it block-width
+    const isSoleToken = /^\{[^}]+\}$/.test(text);
+    el.innerHTML = el.innerHTML.replace(/\{([^}]+)\}/g, (_, t) =>
+      `<span class="token${isSoleToken ? ' token-block' : ''}">{${t}}</span>`
+    );
   });
 </script>
 </body>
