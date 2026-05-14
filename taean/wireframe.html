@@ -661,7 +661,7 @@
       <div class="wf-badge">SECTION 5b · 수입 및 제조 과정</div>
       <h2 class="h-lg">수입 및 제조 과정</h2>
       <div class="mt-8"></div>
-      <p class="caption text-center">{수입·제조 부제 설명 — 13px}</p>
+      <p class="caption text-center">현지에서 최종 제품까지, 전 과정을 투명하게 관리합니다.</p>
       <div class="mt-32"></div>
       <h3 class="h-md">── 수입 과정 ──</h3>
       <div class="mt-16"></div>
@@ -696,7 +696,7 @@
         <div class="guide-item"><div class="guide-icon">ℹ️</div><div><div class="guide-title">이상 여부 확인</div><p class="guide-desc">{가이드 설명}</p></div></div>
       </div>
       <div class="mt-16"></div>
-      <p style="font-size:12px;color:var(--harvest);">{보관 유의 부기 문구 — 12px}</p>
+      <p style="font-size:12px;color:var(--harvest);font-style:italic;">※ 녹용은 개체별 특성에 따라 색택, 형태 등에서 일부 편차가 있을 수 있으나, 이는 제품의 품질 이상이 아닙니다.</p>
     </div>
   </section>
 
@@ -704,35 +704,6 @@
   <section class="bg-bark" id="sec-legal">
     <div class="section-inner" style="text-align:center;">
       <div class="wf-badge" style="background:rgba(193,124,69,0.2);color:var(--maple);border-color:var(--maple);">SECTION 6 · 법적 고지</div>
-      <div style="width:48px;height:48px;border-radius:50%;background:rgba(193,124,69,0.15);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 20px;">⚠️</div>
-      <h2 class="h-md" style="color:var(--parchment);">의료용 제품 안내</h2>
-      <div class="mt-12"></div>
-      <p style="font-size:15px;font-weight:600;color:var(--parchment);line-height:1.6;">
-        {법적 고지 핵심 문구 — 15px Bold}
-      </p>
-      <ul class="legal-list" style="margin:0 auto;">
-        <li>{법적 고지 항목 1}</li>
-        <li>{법적 고지 항목 2}</li>
-        <li>{법적 고지 항목 3}</li>
-      </ul>
-      <div class="legal-divider"></div>
-      <p style="font-size:14px;color:var(--harvest);letter-spacing:1px;">태안 (TAEAN)</p>
-    </div>
-  </section>
-
-</main>
-<script>
-  document.querySelectorAll('main *').forEach(el => {
-    if (el.children.length > 0) return;
-    if (!el.textContent.includes('{')) return;
-    // {[token]} = area token (bordered block), {token} = inline text (no border)
-    el.innerHTML = el.innerHTML
-      .replace(/\{\[([^\]]+)\]\}/g, '<span class="token token-area">{$1}</span>')
-      .replace(/\{([^}\[]+)\}/g,    '<span class="token">{$1}</span>');
-  });
-</script>
-</body>
-</html>d:rgba(193,124,69,0.2);color:var(--maple);border-color:var(--maple);">SECTION 6 · 법적 고지</div>
       <div style="width:48px;height:48px;border-radius:50%;background:rgba(193,124,69,0.15);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 20px;">⚠️</div>
       <h2 class="h-md" style="color:var(--parchment);">의료용 제품 안내</h2>
       <div class="mt-12"></div>
